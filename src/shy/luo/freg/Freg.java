@@ -1,10 +1,10 @@
 package shy.luo.freg;
 
 import android.app.Activity;
-import android.os.ServiceManager;
 import android.os.Bundle;
 import android.os.IFregService;
 import android.os.RemoteException;
+import android.os.ServiceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,12 +27,12 @@ public class Freg extends Activity implements OnClickListener {
         setContentView(R.layout.main);
 
         fregService = IFregService.Stub.asInterface(
-        ServiceManager.getService("freg"));
+                ServiceManager.getService("freg"));
 
-        valueText = (EditText)findViewById(R.id.edit_value);
-        readButton = (Button)findViewById(R.id.button_read);
-        writeButton = (Button)findViewById(R.id.button_write);
-        clearButton = (Button)findViewById(R.id.button_clear);
+        valueText = (EditText) findViewById(R.id.edit_value);
+        readButton = (Button) findViewById(R.id.button_read);
+        writeButton = (Button) findViewById(R.id.button_write);
+        clearButton = (Button) findViewById(R.id.button_clear);
 
         readButton.setOnClickListener(this);
         writeButton.setOnClickListener(this);
@@ -43,7 +43,7 @@ public class Freg extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v.equals(readButton)) {
+        if (v.equals(readButton)) {
             try {
                 int val = fregService.getVal();
                 String text = String.valueOf(val);
@@ -51,7 +51,7 @@ public class Freg extends Activity implements OnClickListener {
             } catch (RemoteException e) {
                 Log.e(LOG_TAG, "Remote Exception while reading value from freg service.");
             }
-        } else if(v.equals(writeButton)) {
+        } else if (v.equals(writeButton)) {
             try {
                 String text = valueText.getText().toString();
                 int val = Integer.parseInt(text);
@@ -59,7 +59,7 @@ public class Freg extends Activity implements OnClickListener {
             } catch (RemoteException e) {
                 Log.e(LOG_TAG, "Remote Exception while writing value to freg service.");
             }
-        } else if(v.equals(clearButton)) {
+        } else if (v.equals(clearButton)) {
             String text = "";
             valueText.setText(text);
         }
